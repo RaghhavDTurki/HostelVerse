@@ -1,6 +1,26 @@
-import { Student } from "../../models/Student";
+import { Student, StudentDocument } from "../../models/Student";
 import { Request, Response } from "express";
+import axios from "axios";
+import { MAP_QUEST_KEY } from "../../util/secrets";
 
+
+const college_location = "Jaipur,Rajasthan";
+
+interface MapQuestInterface{
+    route:{
+        distance: number
+    }
+}
+
+async function getDistance(location: string): Promise<number> {
+    // const query_url = `http://www.mapquestapi.com/directions/v2/route?key=${MAP_QUEST_KEY}&unit=k&from=${location}&to=${college_location}`;
+    const query_url = `http://www.mapquestapi.com/directions/v2/route?key=${MAP_QUEST_KEY}&from=${location}&to=${college_location}`;
+    // console.log(query_url);
+    const distance = (await axios.get(query_url)).data;
+    // console.log(distance);
+    const answer = distance.route.distance;
+    return answer;
+}
 /**
  * Create a new local account.
  * @route POST /student/signup
@@ -20,6 +40,8 @@ export const signupStudent = async (req: Request, res: Response): Promise<void> 
         return;
     }
 
+    const distance = await getDistance(req.body.location);
+
     const student = new Student();
     student.email = req.body.email;
     student.password = req.body.password;
@@ -29,6 +51,7 @@ export const signupStudent = async (req: Request, res: Response): Promise<void> 
     student.profile.contactno = req.body.contactno;
     student.profile.location = req.body.location;
     student.profile.picture = student.gravatar(200);
+    student.distance = distance;
     student.save()
     .then(data => {
         res.status(200).send(data);

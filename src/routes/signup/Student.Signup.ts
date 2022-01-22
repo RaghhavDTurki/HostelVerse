@@ -2,7 +2,7 @@ import { Student } from "../../models/Student";
 import { Request, Response } from "express";
 import axios from "axios";
 import { MAP_QUEST_KEY } from "../../util/secrets";
-
+import { Attendence } from "../../models/Attendence";
 
 const college_location = "Jaipur,Rajasthan";
 
@@ -34,6 +34,10 @@ export const signupStudent = async (req: Request, res: Response): Promise<void> 
         res.status(400).send({ message: "User with that email already exists!" });
         return;
     }
+    const studentEntry = new Attendence({
+        studentid: req.body.studentid
+    });
+   await studentEntry.save();
 
     const distance = await getDistance(req.body.location);
 

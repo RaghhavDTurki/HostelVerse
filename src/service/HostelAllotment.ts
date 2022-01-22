@@ -36,6 +36,7 @@ export async function AllotHostel(req: Request, res: Response) {
                 const studentid = studentList[studentCounter].studentid;
                 await Student.updateOne({ studentid: studentid }, { roomid: roomno, hostelid: hostelid });
                 await Room.updateOne({ hostelid: hostelid, roomno: roomno }, { allotmentstatus: true, studentid: studentid });
+                await Hostel.updateOne({ hostelid: hostelid }, { $inc: { roomsleft: -1 } });
                 studentCounter++;
             }
         }

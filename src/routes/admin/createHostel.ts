@@ -23,7 +23,7 @@ export const createHostel = async (req: Request, res: Response): Promise<void> =
         hostel.wardenid = req.body.wardenid;
     }
     hostel.totalrooms = req.body.totalrooms;
-    hostel.roomsleft = req.body.roomsleft;
+    hostel.roomsleft = req.body.totalrooms;
     hostel.save()
     .then(data => {
         res.send(data);

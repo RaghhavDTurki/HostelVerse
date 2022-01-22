@@ -13,6 +13,8 @@ import { AdminProfile, UpdateAdminProfile } from "./profile/AdminProfile";
 import { StudentProfile } from "./profile/StudentProfile";
 import { WardenProfile } from "./profile/WardenProfile";
 import { signupStudent } from "./signup/Student.Signup";
+import { createLeaveApplication } from "./student/leaveApplication";
+import { createRoomIssue } from "./student/roomIssue";
 import { RoomDetail } from "./warden/RoomDetail";
 import { getStudentList } from "./warden/StudenList";
 import { StudentAttendence } from "./warden/StudentAttendence";
@@ -48,3 +50,6 @@ route.get("/student/checkout/:id", StudentCheckOut);
 route.get("/warden/studentList", getStudentList);
 route.get("/warden/roomDetail", RoomDetail);
 route.get("/warden/studentAttendence", StudentAttendence);
+
+route.post("/student/createRoomIssue", createRoomIssue);
+route.post("/student/createLeaveApplication", createLeaveApplication);

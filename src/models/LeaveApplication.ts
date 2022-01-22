@@ -16,4 +16,4 @@ const LeaveApplicationSchema = new mongoose.Schema<LeaveApplicationDocument>(
     }
 );
 
-export const RoomIssue = mongoose.model<LeaveApplicationDocument>("RoomIssue", LeaveApplicationSchema);
+export const LeaveApplication = mongoose.model<LeaveApplicationDocument>("LeaveApplication", LeaveApplicationSchema);

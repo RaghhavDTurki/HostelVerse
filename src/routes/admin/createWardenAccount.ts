@@ -20,6 +20,7 @@ export const createWardenAccount = async (req: Request, res: Response): Promise<
         res.status(400).send({ message: "Warden with that email already exists!" });
         return;
     }
+    await Hostel.updateOne({ hostelid : req.body.hostelid },{ wardenid: req.body.wardenid });
 
     const warden = new Warden();
     warden.email = req.body.email;
@@ -33,7 +34,6 @@ export const createWardenAccount = async (req: Request, res: Response): Promise<
     warden.profile.picture = warden.gravatar(200);
     warden.save()
     .then(data => {
-        Hostel.updateOne({ hostelid : req.body.hostelid },{ wardenid: req.body.wardenid });
         res.send(data);
     })
     .catch(err => {

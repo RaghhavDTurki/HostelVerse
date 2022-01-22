@@ -13,7 +13,7 @@ export async function viewAnnouncement(req: Request, res: Response): Promise<voi
             Announcement.find({ hostelid: student.hostelid }, null, { sort: { createdAt: 1 } })
         .then(data => {
             res.send(data);
-        }).catch(err => res.send(500).send({ message: err.message }));
-        }).catch(err => res.send(500).send({ message: "Student not exists with this id."}));
+        }).catch(err => res.status(500).send({ message: err.message }));
+        }).catch(err => res.status(500).send({ message: "Student not exists with this id."}));
     
 }

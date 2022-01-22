@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Attendence } from "../../models/Attendence";
 
 function isToday(date: Date) {
-    return date.getDate() === new Date().getDay() && date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear();
+    return date.getDate() === new Date().getDate() && date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear();
 }
 export async function StudentAttendence(req: Request, res: Response): Promise<void> {
     const studentEntries = await Attendence.find({});

@@ -16,6 +16,11 @@ export const MONGODB_URI = prod ? process.env["MONGODB_URI"] : process.env["MONG
 
 export const MAP_QUEST_KEY = process.env["MAP_QUEST_KEY"];
 
+export const JWT_SECRET = process.env["JWT_SECRET"];
+if(!JWT_SECRET) {
+    logger.error("No JWT_SECRET environment variable. Set and restart server.");
+    process.exit(1);
+}
 
 if (!MONGODB_URI) {
     if (prod) {

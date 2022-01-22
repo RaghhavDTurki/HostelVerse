@@ -10,6 +10,7 @@ export async function RoomDetail(req: Request, res: Response): Promise<void> {
         const room = rooms[index];
 
         const students_in_room = students.filter(student => student.roomid === room.roomno);
+        console.log(students_in_room);
         const roomDetail_item = {
             hostelid: room.hostelid,
             roomno: room.roomno,

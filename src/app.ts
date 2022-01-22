@@ -3,7 +3,7 @@ import compression from "compression";  // compresses requests
 import bodyParser from "body-parser";
 import lusca from "lusca";
 import passport from "passport";
-
+import helmet from "helmet";
 // MongoDB Imports
 import { connectHostel } from "./database/Hostel.Connectiion";
 import { connectAdminDB } from "./database/Admin.Connection";
@@ -16,14 +16,7 @@ import { connectRoomIssueDB } from "./database/RoomIssue.Connection";
 import { connectStudentDB } from "./database/Student.Connection";
 import { connectWardenDB } from "./database/Warden.Connection";
 
-// Controllers (route handlers)
-// import * as homeController from "./controllers/home";
-// import * as userController from "./controllers/user";
-// import * as apiController from "./controllers/api";
-// import * as contactController from "./controllers/contact";
 
-// API keys and Passport configuration
-// import * as passportConfig from "./config/passport";
 import "./config/PassportStudent";
 import "./config/passportWarden";
 import "./config/passportAdmin";
@@ -46,6 +39,7 @@ connectWardenDB();
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
+app.use(helmet());
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

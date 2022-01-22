@@ -3,7 +3,11 @@ import { Attendence } from "../../models/Attendence";
 import { Student } from "../../models/Student";
 
 export async function StudentCheckIn(req:Request, res: Response): Promise<void> {
-    const studentid = <string>req.params.id;
+    const studentid = req.body.studentid;
+    if(!studentid){
+        res.status(400).send({ message : "Student ID cannot be empty!"});
+        return;
+    }
     console.log(studentid);
     const student = await Student.findOne({studentid: studentid});
     if(!student) {

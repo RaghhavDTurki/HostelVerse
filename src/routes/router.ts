@@ -43,8 +43,8 @@ route.patch("/admin/profile", UpdateAdminProfile);
 route.get("/student/profile", StudentProfile);
 
 // Student Check In/Out
-route.get("/student/checkin/:id", StudentCheckIn);
-route.get("/student/checkout/:id", StudentCheckOut);
+route.post("/student/checkin/", StudentCheckIn);
+route.post("/student/checkout/", StudentCheckOut);
 
 // warden routes
 route.get("/warden/studentList", getStudentList);

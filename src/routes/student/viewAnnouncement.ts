@@ -8,10 +8,12 @@ export async function viewAnnouncement(req: Request, res: Response): Promise<voi
         res.status(400).send({ message: "No student id received! "})
     }
 
-    const student = await Student.findOne({ studentid: req.body.studentid })
-
-    Announcement.find({ hostelid: student.hostelid }, null, { sort: { createdAt: 1 } })
+    Student.findOne({ studentid: req.body.studentid })
+        .then(student => {
+            Announcement.find({ hostelid: student.hostelid }, null, { sort: { createdAt: 1 } })
         .then(data => {
             res.send(data)
         }).catch(err => res.send(500).send({ message: err.message }))
+        }).catch(err => res.send(500).send({ message: "Student not exists with this id."}))
+    
 }

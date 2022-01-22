@@ -1,13 +1,8 @@
 import express from "express";
 import compression from "compression";  // compresses requests
-// import session from "express-session";
 import bodyParser from "body-parser";
 import lusca from "lusca";
-// import MongoStore from "connect-mongo";
-// import flash from "express-flash";
-// import path from "path";
 import passport from "passport";
-// import { SESSION_SECRET } from "./util/secrets";
 
 // MongoDB Imports
 import { connectHostel } from "./database/Hostel.Connectiion";

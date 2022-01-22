@@ -8,7 +8,7 @@ export type AdminDocument = mongoose.Document & {
     password: string;
     email: string;
     name: string;
-    
+    role: string;
     
     profile: {
         name: string;
@@ -27,7 +27,7 @@ const AdminSchema = new mongoose.Schema<AdminDocument>(
         email: { type: String, unique: true },
         password: String,
         adminid: { type: String, unique: true },
-
+        role: {type: String, default: "admin"},
         profile: {
             name: String,
             email: String,

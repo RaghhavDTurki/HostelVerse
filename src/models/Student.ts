@@ -10,7 +10,8 @@ export type StudentDocument = mongoose.Document & {
     password: string;
     email: string;
     distance: number;
-    
+    role: string;
+
     profile: {
         name: string;
         gender: string;
@@ -34,7 +35,7 @@ const StudentSchema = new mongoose.Schema<StudentDocument>(
         hostelid: String,
         studentid : { type: String, unique: true },
         distance: Number,
-
+        role : {type: String, default: "student"},
         profile: {
             name: String,
             gender: String,

@@ -9,7 +9,7 @@ export type WardenDocument = mongoose.Document & {
     wardenname: string;
     password: string;
     email: string;
-    
+    role: string;
     
     profile: {
         name: string;
@@ -31,7 +31,7 @@ const WardenSchema = new mongoose.Schema<WardenDocument>(
         wardenid: { type: String, unique: true },
         hostelid: { type: String, $ref: "Hostel" },
         wardenname: String,
-
+        role: {type: String, default: "warden"},
         profile: {
             name: String,
             email: String,

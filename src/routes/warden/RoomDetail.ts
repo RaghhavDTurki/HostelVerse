@@ -10,15 +10,27 @@ export async function RoomDetail(req: Request, res: Response): Promise<void> {
         const room = rooms[index];
 
         const students_in_room = students.filter(student => student.roomid === room.roomno);
+        let room_detail_item = {};
+        if(students_in_room.length == 0){
+            room_detail_item = {
+                hostelid: room.hostelid,
+                roomno: room.roomno,
+                allotmentstatus: room.allotmentstatus,
+                studentid: room.studentid
+            };
+        }
+        else{
+            room_detail_item = {
+                hostelid: room.hostelid,
+                roomno: room.roomno,
+                allotmentstatus: room.allotmentstatus,
+                studentid: room.studentid,
+                ...students_in_room[0].profile
+            };
+        }
         console.log(students_in_room);
-        const roomDetail_item = {
-            hostelid: room.hostelid,
-            roomno: room.roomno,
-            allotmentstatus: room.allotmentstatus,
-            studentid: room.studentid,
-            ...students_in_room[0].profile
-        };
-        roomDetail.push(roomDetail_item);
+        
+        roomDetail.push(room_detail_item);
     }
     res.send(roomDetail);
 }

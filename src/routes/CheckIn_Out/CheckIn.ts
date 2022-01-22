@@ -1,0 +1,21 @@
+import { Request, Response } from "express";
+import { Attendence } from "../../models/Attendence";
+import { Student } from "../../models/Student";
+
+export async function StudentCheckIn(req:Request, res: Response): Promise<void> {
+    const studentid = <string>req.params.id;
+    console.log(studentid);
+    const student = await Student.findOne({studentid: studentid});
+    if(!student) {
+        res.status(500).send("Student not found!");
+        return;
+    }
+    Attendence.findOneAndUpdate({studentid: studentid}, {$set: {last_checkin: new Date()}}, {new: true}, (err, doc) => {
+        if(err) {
+            res.status(500).send({message: "Student not found!", err: err});
+        } else {
+            res.status(200).send("Checked In!");
+        }
+    });
+
+}

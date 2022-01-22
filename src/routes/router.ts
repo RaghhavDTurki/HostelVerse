@@ -16,6 +16,8 @@ import { WardenProfile } from "./profile/WardenProfile";
 import { signupStudent } from "./signup/Student.Signup";
 import { createLeaveApplication } from "./student/leaveApplication";
 import { createRoomIssue } from "./student/roomIssue";
+import { viewAnnouncement } from "./student/viewAnnouncement";
+import { createAnnouncement } from "./warden/announcement";
 import { acceptLeaveApplication, getLeaveApplications } from "./warden/leaveApplication";
 import { RoomDetail } from "./warden/RoomDetail";
 import { getRoomIssues, resolveRoomIssue } from "./warden/roomIssue";
@@ -56,8 +58,11 @@ route.get("/warden/studentAttendence", StudentAttendence);
 
 route.post("/student/createRoomIssue", createRoomIssue);
 route.post("/student/createLeaveApplication", createLeaveApplication);
-
+route.post("/student/announcement", viewAnnouncement)
+;
 route.post("/warden/RoomIssues", getRoomIssues);
 route.patch("/warden/RoomIssues", resolveRoomIssue);
 route.post("/warden/LeaveApplications", getLeaveApplications);
 route.patch("/warden/LeaveApplications", acceptLeaveApplication);
+
+route.post("/warden/announcement", createAnnouncement);

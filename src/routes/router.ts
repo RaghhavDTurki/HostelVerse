@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { resolve } from "path";
 import { AllotHostel } from "../service/HostelAllotment";
 import { createHostel } from "./admin/createHostel";
 import { createRoom } from "./admin/createRoom";
@@ -15,9 +16,9 @@ import { WardenProfile } from "./profile/WardenProfile";
 import { signupStudent } from "./signup/Student.Signup";
 import { createLeaveApplication } from "./student/leaveApplication";
 import { createRoomIssue } from "./student/roomIssue";
-import { getLeaveApplications } from "./warden/leaveApplication";
+import { acceptLeaveApplication, getLeaveApplications } from "./warden/leaveApplication";
 import { RoomDetail } from "./warden/RoomDetail";
-import { getRoomIssues } from "./warden/roomIssue";
+import { getRoomIssues, resolveRoomIssue } from "./warden/roomIssue";
 import { getStudentList } from "./warden/StudenList";
 import { StudentAttendence } from "./warden/StudentAttendence";
 export const route: Router = Router();
@@ -56,5 +57,7 @@ route.get("/warden/studentAttendence", StudentAttendence);
 route.post("/student/createRoomIssue", createRoomIssue);
 route.post("/student/createLeaveApplication", createLeaveApplication);
 
-route.post("/warden/getRoomissues", getRoomIssues);
-route.post("/warden/getLeaveApplications", getLeaveApplications);
+route.post("/warden/RoomIssues", getRoomIssues);
+route.patch("/warden/RoomIssues", resolveRoomIssue);
+route.post("/warden/LeaveApplications", getLeaveApplications);
+route.patch("/warden/LeaveApplications", acceptLeaveApplication);

@@ -9,10 +9,10 @@ export type RoomDocument = mongoose.Document & {
 
 const RoomSchema = new mongoose.Schema<RoomDocument>(
     {
-        hostelid: { type: String, $ref: "Hostel" },
+        hostelid: String,
         roomno: String,
         allotmentstatus: { type: Boolean, default: false },
-        studentid: { type: String, $ref: "Student", default: null }
+        studentid: { type: String, default: null }
     }
 );
 

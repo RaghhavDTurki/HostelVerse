@@ -1,19 +1,22 @@
 import { Router } from "express";
-import { resolve } from "path";
 import { AllotHostel } from "../service/HostelAllotment";
 import { createHostel } from "./admin/createHostel";
 import { createRoom } from "./admin/createRoom";
 import { createWardenAccount } from "./admin/createWardenAccount";
+import { getDashboard } from "./admin/Dashboard";
+import { viewFeedback } from "./admin/Feedback";
 import { StudentCheckIn } from "./CheckIn_Out/CheckIn";
 import { StudentCheckOut } from "./CheckIn_Out/CheckOut";
 import { getHostelList } from "./HostelList/getHostList";
 import { AdminLogin } from "./login/Admin.Login";
 import { StudentLogin } from "./login/Student.Login";
 import { WardenLogin } from "./login/Warden.login";
+import { getPaymentDetails } from "./payments/paymentDetail";
 import { AdminProfile, UpdateAdminProfile } from "./profile/AdminProfile";
 import { StudentProfile } from "./profile/StudentProfile";
 import { WardenProfile } from "./profile/WardenProfile";
 import { signupStudent } from "./signup/Student.Signup";
+import { createFeedback } from "./student/Feedback";
 import { createLeaveApplication } from "./student/leaveApplication";
 import { createRoomIssue } from "./student/roomIssue";
 import { acceptLeaveApplication, getLeaveApplications } from "./warden/leaveApplication";
@@ -56,8 +59,13 @@ route.get("/warden/studentAttendence", StudentAttendence);
 
 route.post("/student/createRoomIssue", createRoomIssue);
 route.post("/student/createLeaveApplication", createLeaveApplication);
+route.post("/student/Feedback", createFeedback);
 
 route.post("/warden/RoomIssues", getRoomIssues);
 route.patch("/warden/RoomIssues", resolveRoomIssue);
 route.post("/warden/LeaveApplications", getLeaveApplications);
 route.patch("/warden/LeaveApplications", acceptLeaveApplication);
+
+route.get("/admin/viewFeedback", viewFeedback);
+route.get("/admin/Dashboard", getDashboard);
+route.get("/paymentDetails", getPaymentDetails);

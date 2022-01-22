@@ -9,7 +9,7 @@ export type StudentDocument = mongoose.Document & {
     hostelid: string | null;
     password: string;
     email: string;
-    location: string;
+    distance: number;
     
     profile: {
         name: string;
@@ -32,13 +32,14 @@ const StudentSchema = new mongoose.Schema<StudentDocument>(
         roomid: String,
         hostelid: String,
         studentid : { type: String, unique: true },
+        distance: Number,
 
         profile: {
             name: String,
             email: String,
             picture: String,
             contactno: String,
-            location: String
+            location: String,
         }
     }
 );

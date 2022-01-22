@@ -11,8 +11,8 @@ const RoomSchema = new mongoose.Schema<RoomDocument>(
     {
         hostelid: { type: String, unique: true, $ref: "Hostel" },
         roomno: String,
-        allotmentstatus: Boolean,
-        studentid: { type: String, $ref: "Student" }
+        allotmentstatus: { type: Boolean, default: false },
+        studentid: { type: String, $ref: "Student", default: null }
     }
 );
 

@@ -1,4 +1,5 @@
 import { Warden } from "../../models/Warden";
+import { Hostel } from "../../models/Hostel";
 import { Request, Response } from "express";
 
 /**
@@ -32,6 +33,7 @@ export const createWardenAccount = async (req: Request, res: Response): Promise<
     warden.profile.picture = warden.gravatar(200);
     warden.save()
     .then(data => {
+        Hostel.updateOne({ hostelid : req.body.hostelid },{ wardenid: req.body.wardenid });
         res.send(data);
     })
     .catch(err => {

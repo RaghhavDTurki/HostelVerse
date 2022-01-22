@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 export type FeedbackDocument = mongoose.Document & {
     studentid: string;
+    name: string;
     rating: number;
     message: string;
 };
@@ -9,6 +10,7 @@ export type FeedbackDocument = mongoose.Document & {
 const FeedbackSchema = new mongoose.Schema<FeedbackDocument>(
     {
         studentid: { type: String, $ref: "Student" },
+        name: String,
         message: String,
         rating: Number
     },

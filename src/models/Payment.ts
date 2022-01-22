@@ -11,7 +11,7 @@ export type PaymentDocument = mongoose.Document & {
 
 const PaymentSchema = new mongoose.Schema<PaymentDocument>(
     {
-        studentid: { type: String, unique: true, $ref: "Student" },
+        studentid: { type: String, $ref: "Student" },
         accountno: String,
         paymentamount: Number,
         duedate: Date,

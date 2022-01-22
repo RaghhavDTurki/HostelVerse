@@ -29,7 +29,7 @@ const WardenSchema = new mongoose.Schema<WardenDocument>(
         email: { type: String, unique: true },
         password: String,
         wardenid: { type: String, unique: true },
-        hostelid: { type: String, unique: true, $ref: "Hostel" },
+        hostelid: { type: String, $ref: "Hostel" },
         wardenname: String,
 
         profile: {

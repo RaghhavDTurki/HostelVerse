@@ -29,8 +29,8 @@ const StudentSchema = new mongoose.Schema<StudentDocument>(
     {
         email: { type: String, unique: true },
         password: String,
-        roomid: { type: String , unique: true },
-        hostelid: { type: String , unique: true },
+        roomid: String,
+        hostelid: String,
         studentid : { type: String, unique: true },
 
         profile: {

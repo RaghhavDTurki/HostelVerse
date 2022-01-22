@@ -8,7 +8,7 @@ export type FeedbackDocument = mongoose.Document & {
 
 const FeedbackSchema = new mongoose.Schema<FeedbackDocument>(
     {
-        studentid: { type: String, unique: true, $ref: "Student" },
+        studentid: { type: String, $ref: "Student" },
         message: String,
         rating: Number
     },

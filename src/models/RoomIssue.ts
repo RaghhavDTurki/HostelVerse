@@ -10,8 +10,8 @@ export type RoomIssueDocument = mongoose.Document & {
 
 const RoomIssueSchema = new mongoose.Schema<RoomIssueDocument>(
     {
-        hostelid: { type: String, unique: true, $ref: "Hostel" },
-        roomno: {type: String, unique: true, $ref: "Room"},
+        hostelid: { type: String, $ref: "Hostel" },
+        roomno: {type: String, $ref: "Room"},
         remarks: String,
         created_at: { type: Date, default: Date.now },
         status: String

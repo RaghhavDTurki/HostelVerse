@@ -8,8 +8,8 @@ export type AnnouncementDocument = mongoose.Document & {
 
 const AnnouncementSchema = new mongoose.Schema<AnnouncementDocument>(
     {
-        hostelid: { type: String, unique: true, $ref: "Hostel" },
-        wardenid: { type: String, unique: true, $ref: "Warden" },
+        hostelid: { type: String, $ref: "Hostel" },
+        wardenid: { type: String, $ref: "Warden" },
         message: String
     },
     { timestamps: true }

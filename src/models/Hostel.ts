@@ -14,7 +14,7 @@ const HostelSchema = new mongoose.Schema<HostelDocument>(
         hostelid: { type: String, unique: true },
         hostelname: String,
         location: String,
-        wardenid: { type: String, unique: true, $ref: "Warden" },
+        wardenid: String,
         totalrooms: Number,
         roomsleft: Number
     }

@@ -6,15 +6,17 @@ import crypto from "crypto";
 export type StudentDocument = mongoose.Document & {
     studentid: string;
     roomid: string | null;
+    hostelid: string | null;
     password: string;
     email: string;
-    
+    location: string;
     
     profile: {
         name: string;
         email: string;
         picture: string;
         contactno: string;
+        location: string;
     };
     comparePassword: comparePasswordFunction;
     gravatar: (size: number) => string;
@@ -28,13 +30,15 @@ const StudentSchema = new mongoose.Schema<StudentDocument>(
         email: { type: String, unique: true },
         password: String,
         roomid: { type: String , unique: true },
+        hostelid: { type: String , unique: true },
         studentid : { type: String, unique: true },
 
         profile: {
             name: String,
             email: String,
             picture: String,
-            contactno: String
+            contactno: String,
+            location: String
         }
     }
 );

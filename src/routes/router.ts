@@ -9,18 +9,19 @@ import { getHostelList } from "./HostelList/getHostList";
 import { AdminLogin } from "./login/Admin.Login";
 import { StudentLogin } from "./login/Student.Login";
 import { WardenLogin } from "./login/Warden.login";
-import { AdminProfile } from "./profile/AdminProfile";
+import { AdminProfile, UpdateAdminProfile } from "./profile/AdminProfile";
 import { StudentProfile } from "./profile/StudentProfile";
 import { WardenProfile } from "./profile/WardenProfile";
-import { signupAdmin } from "./signup/Admin.Singup";
 import { signupStudent } from "./signup/Student.Signup";
+import { RoomDetail } from "./warden/RoomDetail";
+import { getStudentList } from "./warden/StudenList";
+import { StudentAttendence } from "./warden/StudentAttendence";
 export const route: Router = Router();
 
 route.get("/allotHostel", AllotHostel);
 route.get("/getHostelList", getHostelList);
 
 // signup routes
-route.post("/admin/signup", signupAdmin);
 route.post("/student/signup", signupStudent);
 
 // login routes
@@ -36,8 +37,14 @@ route.post("/admin/createroom", createRoom);
 // Get Profiles
 route.get("/admin/profile", AdminProfile);
 route.get("/warden/profile", WardenProfile);
+route.patch("/admin/profile", UpdateAdminProfile);
 route.get("/student/profile", StudentProfile);
 
 // Student Check In/Out
 route.get("/student/checkin/:id", StudentCheckIn);
 route.get("/student/checkout/:id", StudentCheckOut);
+
+// warden routes
+route.get("/warden/studentList", getStudentList);
+route.get("/warden/roomDetail", RoomDetail);
+route.get("/warden/studentAttendence", StudentAttendence);

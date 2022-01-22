@@ -13,6 +13,6 @@ export async function createLeaveApplication(req: Request, res: Response): Promi
 
     leaveApplication.save()
         .then(data => {
-            res.send("Leave Application created successfully.")
-        }).catch(err => res.status(500).send({ message: err.message || "An error occured while creating a leave application."}))
+            res.send("Leave Application created successfully.");
+        }).catch(err => res.status(500).send({ message: err.message || "An error occured while creating a leave application."}));
 }

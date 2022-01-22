@@ -11,6 +11,6 @@ export async function createAnnouncement(req: Request, res: Response): Promise<v
 
     announcement.save()
         .then(data => {
-            res.send({ message: "Announcement created successfully." })
-        }).catch(err => res.status(500).send({ message: err.message || "An error occured while creating announcement."}))
+            res.send({ message: "Announcement created successfully." });
+        }).catch(err => res.status(500).send({ message: err.message || "An error occured while creating announcement."}));
 }

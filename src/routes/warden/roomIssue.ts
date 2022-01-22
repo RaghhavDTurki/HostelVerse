@@ -9,17 +9,17 @@ export async function getRoomIssues (req: Request, res: Response): Promise<void>
     if(req.body.id) {
         await RoomIssue.findById({ _id: req.body.id })
             .then(data => {
-                res.send(data)
+                res.send(data);
             }).catch(err => {
-                res.status(500).send({ message: err.message })
-            })
+                res.status(500).send({ message: err.message });
+            });
     } else {
         await RoomIssue.find({})
             .then(data => {
-                res.send(data)
+                res.send(data);
             }).catch(err => {
-                res.status(500).send({ message: err.message })
-            })
+                res.status(500).send({ message: err.message });
+            });
     }
 }
 
@@ -31,8 +31,8 @@ export async function resolveRoomIssue (req: Request, res: Response): Promise<vo
             } else {
                 res.status(200).send({ message: "Resolved room issue!" });
             }
-        })
+        });
     } else {
-        res.status(404).send({ message: "No id received for resolving room issue."})
+        res.status(404).send({ message: "No id received for resolving room issue."});
     }
 }

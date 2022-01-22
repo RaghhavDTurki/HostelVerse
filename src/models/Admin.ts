@@ -7,6 +7,7 @@ export type AdminDocument = mongoose.Document & {
     adminid: string;
     password: string;
     email: string;
+    name: string;
     
     
     profile: {

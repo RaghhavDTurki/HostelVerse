@@ -29,7 +29,7 @@ export async function UpdateAdminProfile(req: Request, res: Response): Promise<v
     const salt = bcrypt.genSaltSync(10);
     const HashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-    Admin.findOneAndUpdate({ email: req.body.email }, { $set: { password: HashedPassword } }, { useFindAndModify: false} , (err, doc) => {
+    Admin.findOneAndUpdate({ email: req.body.email }, { $set: { password: HashedPassword, name: req.body.name } }, { useFindAndModify: false} , (err, doc) => {
         if (err) {
             res.status(500).send({ message: "Admin not found!", err: err });
         } else {

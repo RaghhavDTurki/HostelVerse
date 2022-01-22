@@ -1,5 +1,6 @@
 import { Room } from "../../models/Room";
 import { Request, Response } from "express";
+import { Hostel } from "../../models/Hostel";
 
 /**
  * Create a room entry
@@ -13,7 +14,7 @@ export const createRoom = async (req: Request, res: Response): Promise<void> => 
         res.status(400).send({ message : "Content cannot be empty!"});
         return;
     }
-
+    Hostel.updateOne({ hostelid : req.body.hostelid },{ $inc: { totalrooms: 1 } });
     const room = new Room(); 
     room.hostelid = req.body.hostelid;
     room.roomno = req.body.roomno;

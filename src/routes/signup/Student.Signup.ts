@@ -1,4 +1,4 @@
-import { Student, StudentDocument } from "../../models/Student";
+import { Student } from "../../models/Student";
 import { Request, Response } from "express";
 import axios from "axios";
 import { MAP_QUEST_KEY } from "../../util/secrets";
@@ -6,11 +6,6 @@ import { MAP_QUEST_KEY } from "../../util/secrets";
 
 const college_location = "Jaipur,Rajasthan";
 
-interface MapQuestInterface{
-    route:{
-        distance: number
-    }
-}
 
 async function getDistance(location: string): Promise<number> {
     // const query_url = `http://www.mapquestapi.com/directions/v2/route?key=${MAP_QUEST_KEY}&unit=k&from=${location}&to=${college_location}`;
@@ -47,6 +42,7 @@ export const signupStudent = async (req: Request, res: Response): Promise<void> 
     student.password = req.body.password;
     student.studentid = req.body.studentid;
     student.profile.name = req.body.name;
+    student.profile.gender = req.body.gender;
     student.profile.email = req.body.email;
     student.profile.contactno = req.body.contactno;
     student.profile.location = req.body.location;

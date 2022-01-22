@@ -13,6 +13,7 @@ export type StudentDocument = mongoose.Document & {
     
     profile: {
         name: string;
+        gender: string;
         email: string;
         picture: string;
         contactno: string;
@@ -36,6 +37,7 @@ const StudentSchema = new mongoose.Schema<StudentDocument>(
 
         profile: {
             name: String,
+            gender: String,
             email: String,
             picture: String,
             contactno: String,

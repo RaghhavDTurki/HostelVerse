@@ -30,12 +30,12 @@ export async function AllotHostel(req: Request, res: Response) {
     for(let i = 0; i < hostelList.length; i++) {
         const hostelid = hostelList[i].hostelid;
         const roomList = await Room.find({ hostelid: hostelid, allotmentstatus: false });
-        for(let j = 0; j < roomList.length; j++) {
-            const roomid = roomList[j].roomno;
-            if(studentCounter < studentList.length) {
+        for(let j = 0; j < roomList.length; j++) {  
+            const roomno = roomList[j].roomno;
+            if(studentCounter < studentList.length) {   
                 const studentid = studentList[studentCounter].studentid;
-                await Student.updateOne({ studentid: studentid }, { roomid: roomid, hostelid: hostelid });
-                await Room.updateOne({ roomno: roomid }, { allotmentstatus: true, studentid: studentid });
+                await Student.updateOne({ studentid: studentid }, { roomid: roomno, hostelid: hostelid });
+                await Room.updateOne({ hostelid: hostelid, roomno: roomno }, { allotmentstatus: true, studentid: studentid });
                 studentCounter++;
             }
         }

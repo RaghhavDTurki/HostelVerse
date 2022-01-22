@@ -6,10 +6,20 @@ import lusca from "lusca";
 import MongoStore from "connect-mongo";
 import flash from "express-flash";
 import path from "path";
-import mongoose from "mongoose";
 import passport from "passport";
-import bluebird from "bluebird";
-import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
+import { SESSION_SECRET } from "./util/secrets";
+
+// MongoDB Imports
+import { connectHostel, mongoUrl } from "./database/Hostel.Connectiion";
+import { connectAdminDB } from "./database/Admin.Connection";
+import { connectAnnouncementDB } from "./database/Announcement.Connection";
+import { connectAttendenceDB } from "./database/Attendence.Connection";
+import { connectFeedbackDB } from "./database/Feedback.Connection";
+import { connectPaymentDB } from "./database/Payment.Connection";
+import { connectRoomDB } from "./database/Room.Connection";
+import { connectRoomIssueDB } from "./database/RoomIssue.Connection";
+import { connectStudentDB } from "./database/Student.Connection";
+import { connectWardenDB } from "./database/Warden.Connection";
 
 // Controllers (route handlers)
 import * as homeController from "./controllers/home";
@@ -23,16 +33,17 @@ import * as passportConfig from "./config/passport";
 // Create Express server
 const app = express();
 
-// Connect to MongoDB
-const mongoUrl = MONGODB_URI;
-mongoose.Promise = bluebird;
-
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true } ).then(
-    () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
-).catch(err => {
-    console.log(`MongoDB connection error. Please make sure MongoDB is running. ${err}`);
-    // process.exit();
-});
+// Connect to MongoDB Databases
+connectHostel();
+connectAdminDB();
+connectAnnouncementDB();
+connectAttendenceDB();
+connectFeedbackDB();
+connectPaymentDB();
+connectRoomDB();
+connectRoomIssueDB();
+connectStudentDB();
+connectWardenDB();
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);

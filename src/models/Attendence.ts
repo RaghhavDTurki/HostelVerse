@@ -8,7 +8,7 @@ export type AttendenceDocument = mongoose.Document & {
 
 const AttendenceSchema = new mongoose.Schema<AttendenceDocument>(
     {
-        studentid: { type: String, unique: true, $ref: "Student" },
+        studentid: { type: String, unique: true},
         last_checkin: { type: Date, default: null },
         last_checkout: { type: Date, default: null }
     }

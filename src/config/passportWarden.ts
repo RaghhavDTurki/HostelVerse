@@ -16,7 +16,7 @@ passport.deserializeUser((id, done) => {
 
 
 const passportWardenConfig = new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
-    Warden.findOne({ email: email.toLowerCase() }, (err: NativeError, user: WardenDocument) => {
+    Warden.findOne({ email: email }, (err: NativeError, user: WardenDocument) => {
         if (err) { return done(err); }
         if (!user) {
             return done(undefined, false, { message: `Email ${email} not found.` });

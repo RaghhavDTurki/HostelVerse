@@ -16,7 +16,7 @@ passport.deserializeUser((id, done) => {
 
 
 const passportStudentConfig = new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
-    Student.findOne({ email: email.toLowerCase() }, (err: NativeError, user: StudentDocument) => {
+    Student.findOne({ email: email }, (err: NativeError, user: StudentDocument) => {
         if (err) { return done(err); }
         if (!user) {
             return done(undefined, false, { message: `Email ${email} not found.` });

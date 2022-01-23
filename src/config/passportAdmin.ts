@@ -16,7 +16,7 @@ passport.deserializeUser((id, done) => {
 
 
 const passportAdminConfig = new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
-    Admin.findOne({ email: email.toLowerCase() }, (err: NativeError, user: AdminDocument) => {
+    Admin.findOne({ email: email }, (err: NativeError, user: AdminDocument) => {
         if (err) { return done(err); }
         if (!user) {
             return done(undefined, false, { message: `Email ${email} not found.` });

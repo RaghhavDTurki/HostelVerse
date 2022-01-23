@@ -4,85 +4,101 @@
 ## Admin Login
 ### /admin/login
 #### Schema
-- username: string
-- password: string
-
-### /admin/signup
-#### Schema
-- username: string
-- password: string
-- student_id: string
-- name: string
-- location: string
-- contactno: string
-- gender : string
+- email
+- password
 
 ---
 
 ## Student Login
 ### /student/login
 #### Schema
-- username: string
-- password: string
+- email
+- password
 
 ### /student/signup
 #### Schema
-- username: string
-- password: string
-- student_id: string
-- name: string
-- location: string
-- contactno: string
-- gender : string
+- email
+- studentid
+- name
+- password
+- location
+- contactno
+- gender 
 
 ---
 
 ## Warden Login
 ### /warden/login
 #### Schema
-- username: string
-- password: string
+- email
+- password
 
 ---
 
 ## Admin Create
 ### /admin/createWardenAccount
 #### Schema
-- email : string
-- password : string
-- wardenid : string
-- name : string
-- hostelid : string
-- contactno : string
-- gender : string
+- email 
+- password 
+- wardenid 
+- name 
+- hostelid 
+- contactno 
+- gender 
 
 ### /admin/createhostel
 #### Schema
-- hostelid : string
-- name : string
-- location : string
-- wardenid : string
-- totalrooms : string
-- roomsleft : string
+- hostelid
+- name
+- location
+- totalrooms
 
 ### /admin/createroom
 #### Schema
-- hostelid : string
-- roomno : string
+- hostelid 
+- roomno 
 
 ---
 
 ## Profile
 ### /student/profile
 #### Schema
-- email : string
+- email 
 
 ### /warden/profile
 #### Schema
-- email : string
+- email 
 
 ### /admin/profile
 #### Schema
-- email : string
+- email 
+
+---
+
+### /getHostelList
+#### Schema
+- No Schema
+
+### /student/checkin/${studentid}
+#### Schema
+- studentid
+
+### /student/checkout/${studentid}
+#### Schema
+- studentid
+
+---
+
+### /warden/studentList
+#### Schema
+- No Schema
+
+### /warden/roomDetail
+#### Schema
+- No Schema
+
+### /warden/studentAttendence
+#### Schema
+- No Schema
 
 ---

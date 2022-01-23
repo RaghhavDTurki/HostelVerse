@@ -37,11 +37,6 @@ const passportStudentConfig = new LocalStrategy({ usernameField: "email" }, (ema
 
 passport.use("student-local", passportStudentConfig);
 
-export const isAuthenticated = (req: Request, res: Response, next: NextFunction): void => {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-};
 
 const passJWTStudentConfig = new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

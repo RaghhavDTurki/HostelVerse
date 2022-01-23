@@ -3,7 +3,11 @@ import { NativeError } from "mongoose";
 import passport from "passport";
 import passportLocal from "passport-local";
 import { Warden, WardenDocument } from "../models/Warden";
+import passportJwt from "passport-jwt";
+import { JWT_SECRET } from "../util/secrets";
 
+const JwtStrategy = passportJwt.Strategy;
+const ExtractJwt = passportJwt.ExtractJwt;
 const LocalStrategy = passportLocal.Strategy;
 
 passport.serializeUser<any, any>((req, user, done) => {
@@ -31,10 +35,19 @@ const passportWardenConfig = new LocalStrategy({ usernameField: "email" }, (emai
     });
 });
 
-    passport.use("warden-local", passportWardenConfig);
+passport.use("warden-local", passportWardenConfig);
 
-export const isAuthenticated = (req: Request, res: Response, next: NextFunction): void => {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-};
+const passJWTWardenConfig = new JwtStrategy({
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: JWT_SECRET 
+}, (jwtPayload, done) => {
+    Warden.findById(jwtPayload._id, (err: NativeError, user: WardenDocument) => {
+        if (err) { return done(err, false); }
+        if (user) {
+            return done(undefined, user);
+        }
+        return done(undefined, false);
+    });
+});
+
+passport.use("student-jwt", passJWTWardenConfig);

@@ -46,10 +46,10 @@ route.post("/admin/createhostel", createHostel);
 route.post("/admin/createroom", createRoom);
 
 // Get Profiles
-route.get("/admin/profile", AdminProfile);
-route.get("/warden/profile", WardenProfile);
+route.post("/admin/profile", AdminProfile);
+route.post("/warden/profile", WardenProfile);
 route.patch("/admin/profile", UpdateAdminProfile);
-route.get("/student/profile", StudentProfile);
+route.post("/student/profile", StudentProfile);
 
 // Student Check In/Out
 route.post("/student/checkin/", StudentCheckIn);

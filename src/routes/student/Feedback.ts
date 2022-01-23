@@ -6,7 +6,6 @@ export async function createFeedback(req: Request, res: Response): Promise<void>
         res.status(400).send({ message : "Body cannot be empty!"});
         return;
     }
-
     const feedback = new Feedback();
     feedback.studentid = req.body.studentid;
     feedback.name = req.body.name;

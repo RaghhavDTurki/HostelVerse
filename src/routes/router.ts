@@ -62,7 +62,7 @@ route.get("/warden/studentAttendence", StudentAttendence);
 
 route.post("/student/createRoomIssue", createRoomIssue);
 route.post("/student/createLeaveApplication", createLeaveApplication);
-route.post("/student/announcement", viewAnnouncement);
+route.get("/student/announcement", viewAnnouncement);
 
 route.post("/student/Feedback", createFeedback);
 

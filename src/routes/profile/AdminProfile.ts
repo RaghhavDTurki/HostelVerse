@@ -37,3 +37,25 @@ export async function UpdateAdminProfile(req: Request, res: Response): Promise<v
         }
     });
 }
+
+/**
+ * Create Default Admin
+ * @route POST /admin/profile
+ */
+
+ export async function defaultAdmin(req: Request, res: Response): Promise<void> {
+    if(!req.body.email || !req.body.password){
+        res.status(400).send({ message : "Email/Password cannot be empty!"});
+        return;
+    }
+    const admin = new Admin();
+    admin.email = req.body.email;
+    admin.password = req.body.password;
+    admin.save()
+    .then(data => {
+        res.send({ message: "Admin created successfully!" });
+    })
+    .catch(err => {
+        res.status(500).send({ message: "Error creating admin!", err: err });
+    });
+}

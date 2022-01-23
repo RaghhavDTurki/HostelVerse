@@ -7,6 +7,7 @@ export type HostelDocument = mongoose.Document & {
     wardenid: string;
     totalrooms: number;
     roomsleft: number;
+    fees: number;
 };
 
 const HostelSchema = new mongoose.Schema<HostelDocument>(
@@ -16,7 +17,9 @@ const HostelSchema = new mongoose.Schema<HostelDocument>(
         location: String,
         wardenid: String,
         totalrooms: Number,
-        roomsleft: Number
+        roomsleft: Number,
+        fees: Number
+
     }
 );
 

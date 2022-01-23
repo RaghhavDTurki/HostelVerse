@@ -16,6 +16,13 @@ export const MONGODB_URI = prod ? process.env["MONGODB_URI"] : process.env["MONG
 
 export const MAP_QUEST_KEY = process.env["MAP_QUEST_KEY"];
 
+export const REDIS_HOSTNAME = process.env["REDIS_HOSTNAME"];
+export const REDIS_PASSWORD = process.env["REDIS_PASSWORD"];
+export const REDIS_PORT = process.env["REDIS_PORT"];
+export const SENDGRID_USER = process.env["SENDGRID_USER"];
+export const SENDGRID_PASSWORD = process.env["SENDGRID_PASSWORD"];
+
+
 export const JWT_SECRET = process.env["JWT_SECRET"];
 if(!JWT_SECRET) {
     logger.error("No JWT_SECRET environment variable. Set and restart server.");

@@ -16,7 +16,7 @@ import { connectRoomIssueDB } from "./database/RoomIssue.Connection";
 import { connectStudentDB } from "./database/Student.Connection";
 import { connectWardenDB } from "./database/Warden.Connection";
 
-
+import { limiter } from "./middleware/rateLimit";
 import "./config/PassportStudent";
 import "./config/passportWarden";
 import "./config/passportAdmin";
@@ -40,6 +40,7 @@ connectWardenDB();
 // Express configuration
 app.set("port", process.env.PORT || 3000);
 app.use(helmet());
+app.use(limiter);
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

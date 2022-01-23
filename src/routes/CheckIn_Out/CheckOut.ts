@@ -13,11 +13,24 @@ export const StudentCheckOut = async (req:Request, res: Response): Promise<void>
         res.status(500).send("Student not found!");
         return;
     }
-    Attendence.findOneAndUpdate({ studentid }, { $set: { last_checkout: new Date() } }, { new: true }, (err, doc) => {
-        if (err) {
-            res.status(500).send({ message: "Student not found!", err: err });
-        } else {
-            res.status(200).send("Checked Out!");
+    Attendence.findOne({ studentid: studentid})
+    .then(studentLog => {
+        const last_checkin = studentLog.last_checkin;
+        const last_checkout = studentLog.last_checkout;
+        if(last_checkin > last_checkout) {
+            Attendence.updateOne({ studentid: studentid }, { last_checkout: new Date() })
+            .then(data => {
+                res.send({ messgae: "Checked Out successfully!"});
+            })
+            .catch(err => {
+                res.status(500).send({ message: "Error occured while checking out!"});
+            });
         }
+        else{
+            res.status(400).send({ message: "You have already checked out!"});
+        }
+    })
+    .catch(err => {
+        res.status(500).send({ message: "Student not found in Attendence DB"});
     });
 };

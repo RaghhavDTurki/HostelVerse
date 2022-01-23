@@ -13,25 +13,21 @@ import {background} from '../../assets/index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignIn = ({navigation}) => {
-  const [email, setEmail] = useState('Akash1@gmail.com');
-  const [password, setPassword] = useState('12345678');
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState('student');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
 
   const setStringValue = async value => {
+    const data = JSON.stringify(value);
     try {
-      await AsyncStorage.setItem('authData', value);
-    } catch (e) {}
-  };
-
-  const getStringValue = async () => {
-    try {
-      await AsyncStorage.getItem('authData');
+      await AsyncStorage.setItem('authData', data);
     } catch (e) {}
   };
 
   const userSignIn = () => {
     setError(false);
-    if (email.length < 5 || password.length < 5) {
+    if (email.length < 5 || password.length < 4 || role.length < 4) {
       setError(true);
       return;
     }
@@ -43,7 +39,9 @@ const SignIn = ({navigation}) => {
 
     var config = {
       method: 'post',
-      url: 'https://hostelverse.herokuapp.com/student/login',
+      url: `https://hostelverse.herokuapp.com/${
+        role == 'student' ? 'student' : 'admin'
+      }/login`,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -55,11 +53,11 @@ const SignIn = ({navigation}) => {
         console.log(response.data);
         if (response.data) {
           await setStringValue(response.data);
-          // if (response.data.role == 'student') {
-          //   navigation.replace('Student');
-          // } else if (response.data.role == 'admin') {
-          //   navigation.replace('Admin');
-          // }
+          if (response.data.role == 'student') {
+            navigation.replace('Student');
+          } else if (response.data.role == 'admin') {
+            navigation.replace('Admin');
+          }
         }
       })
       .catch(function (error) {
@@ -123,6 +121,21 @@ const SignIn = ({navigation}) => {
             }}
             placeholder="Password"
           />
+          <TextInput
+            onChangeText={e => setRole(e)}
+            value={role}
+            style={{
+              backgroundColor: colors.white,
+              borderRadius: width * 0.02,
+              width: width * 0.8,
+              height: height * 0.045,
+              paddingHorizontal: width * 0.01,
+              paddingVertical: 0,
+              textAlignVertical: 'center',
+              marginVertical: height * 0.005,
+            }}
+            placeholder="Role"
+          />
 
           {error ? (
             <Text
@@ -155,9 +168,7 @@ const SignIn = ({navigation}) => {
             </Text>
             <Text
               style={{color: colors.black, fontWeight: '600'}}
-              onPress={getStringValue}
-              // onPress={() => navigation.navigate('SignUp')}
-            >
+              onPress={() => navigation.navigate('SignUp')}>
               Sign Up
             </Text>
           </View>

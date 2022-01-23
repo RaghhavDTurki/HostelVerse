@@ -1,9 +1,11 @@
 import {View, Text, SafeAreaView, TouchableOpacity, Image} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import {width, height, colors} from '../utils/constants';
 import {profileImg} from '../../assets/index';
 import StudentHeader from './StudentHeader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const month = [
   'January',
@@ -22,8 +24,44 @@ const month = [
 
 const CheckInOut = () => {
   const date = new Date();
+
+  const [userData, setUserData] = useState(null);
   const [checked, setChecked] = useState(false);
 
+  const getProfile = async () => {
+    const data = await AsyncStorage.getItem('authData');
+    setUserData(JSON.parse(data));
+  };
+
+  useEffect(() => {
+    getProfile();
+  });
+
+  const check = async () => {
+    if (!userData.hostelid) return;
+
+    var data = JSON.stringify({
+      studentid: userData.studentid,
+    });
+
+    var config = {
+      method: 'post',
+      url: `https://hostelverse.herokuapp.com/student/${
+        checked ? 'checkin/' : 'checkout/'
+      }`,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(async response => {
+        setChecked(!checked);
+      })
+      .catch(function (error) {});
+  };
+  if (!userData) return null;
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
       <StudentHeader />
@@ -58,7 +96,7 @@ const CheckInOut = () => {
             style={{marginLeft: width * 0.01, justifyContent: 'space-between'}}>
             <Text>Welcome</Text>
             <Text style={{fontSize: width * 0.045, fontWeight: '600'}}>
-              Wade Warden
+              {userData.profile.name}
             </Text>
             <Text>Aapka din mangalmayee rhe !!!</Text>
           </View>
@@ -87,7 +125,7 @@ const CheckInOut = () => {
                 fontStyle: 'italic',
                 color: colors.black,
               }}>
-              01
+              {userData.hostelid ? userData.hostelid : 'Not Allocated'}
             </Text>
           </View>
           <View
@@ -108,7 +146,7 @@ const CheckInOut = () => {
                 color: colors.black,
                 fontStyle: 'italic',
               }}>
-              {'101'}
+              {userData.roomid ? userData.roomid : 'Not Allocated'}
             </Text>
           </View>
           <View
@@ -167,7 +205,7 @@ const CheckInOut = () => {
             Check In / Out
           </Text>
           <TouchableOpacity
-            onPress={() => setChecked(!checked)}
+            onPress={check}
             style={{
               backgroundColor: checked ? colors.green : colors.red,
               padding: width * 0.01,

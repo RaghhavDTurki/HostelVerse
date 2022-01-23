@@ -13,14 +13,14 @@ import {width, colors, height, routes} from '.././utils/constants';
 import {background} from '../../assets/index';
 
 const SignUp = ({navigation}) => {
-  const [email, setEmail] = useState('Akash@gmail.com');
-  const [password, setPassword] = useState('12345678');
-  const [confirmPassword, setConfirmPassword] = useState('12345678');
-  const [name, setName] = useState('Akash');
-  const [gender, setGender] = useState('Male');
-  const [address, setAddress] = useState('Khopoli,Maharashtra');
-  const [id, setId] = useState('1138');
-  const [phone, setPhone] = useState('1234567890');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('');
+  const [gender, setGender] = useState('');
+  const [address, setAddress] = useState('');
+  const [id, setId] = useState('');
+  const [phone, setPhone] = useState('');
   const [error, setError] = useState(false);
 
   const userSignUp = () => {
@@ -63,7 +63,7 @@ const SignUp = ({navigation}) => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        navigation.navigate('SignIn');
       })
       .catch(function (error) {
         console.log(error);

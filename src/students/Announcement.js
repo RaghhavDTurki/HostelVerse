@@ -49,8 +49,6 @@ const AnnouncmentItem = ({title, msg}) => {
 };
 
 const Announcement = () => {
-  const [value, setValue] = useState('');
-
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
       <StudentHeader />

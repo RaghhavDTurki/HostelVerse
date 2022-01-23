@@ -6,9 +6,10 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //Auth
 import SignUp from './src/Auth/SignUp';
@@ -99,10 +100,30 @@ const Auth = () => {
 const MainStack = createNativeStackNavigator();
 
 function App() {
+  const [route, setRoute] = useState(null);
+
+  getProfile = async () => {
+    const res = await AsyncStorage.getItem('authData');
+    const data = JSON.parse(res);
+    if (data) {
+      if (data.role == 'student') {
+        setRoute('Student');
+      } else if (data.role == 'admin') {
+        setRoute('Admin');
+      }
+    } else setRoute('Auth');
+  };
+
+  useEffect(() => {
+    getProfile();
+  });
+
+  if (!route) return null;
+
   return (
     <NavigationContainer>
       <MainStack.Navigator
-        initialRouteName="Auth"
+        initialRouteName={route}
         screenOptions={{headerShown: false}}>
         <MainStack.Screen name="Auth" component={Auth} />
         <MainStack.Screen name="Student" component={Student} />

@@ -6,7 +6,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Octicons from 'react-native-vector-icons/Octicons';
@@ -17,19 +17,21 @@ import Clipboard from '@react-native-community/clipboard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const StudentDashboard = ({navigation}) => {
+  const [userdata, setUserdata] = useState(null);
+
   const copyToClipboard = () => {
     Clipboard.setString('#123456');
   };
 
   getProfile = async () => {
     const data = await AsyncStorage.getItem('authData');
-    console.log(data);
+    setUserdata(JSON.parse(data));
   };
 
   useEffect(() => {
     getProfile();
   });
-
+  if (!userdata) return null;
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
       <ScrollView
@@ -50,7 +52,7 @@ const StudentDashboard = ({navigation}) => {
               fontWeight: '600',
               color: colors.black,
             }}>
-            Wade Warden
+            {userdata.profile.name}
           </Text>
           <TouchableOpacity
             onPress={copyToClipboard}
@@ -66,7 +68,7 @@ const StudentDashboard = ({navigation}) => {
               style={{
                 marginRight: width * 0.01,
               }}>
-              ID #123456
+              ID #{userdata.studentid}
             </Text>
             <Icon name="copy" />
           </TouchableOpacity>

@@ -7,7 +7,6 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
-import Icon from 'react-native-vector-icons/Feather';
 import {width, height, colors} from '../utils/constants';
 import {profileImg} from '../../assets/index';
 import AdminHeader from './AdminHeader';
@@ -27,7 +26,7 @@ const month = [
   'December',
 ];
 
-const Item = () => {
+const Item = ({item}) => {
   return (
     <View
       style={{
@@ -38,7 +37,7 @@ const Item = () => {
         borderRadius: width * 0.03,
         marginVertical: height * 0.01,
       }}>
-      <Text>Hostel 01</Text>
+      <Text>{item.hostel}</Text>
       <View
         style={{
           flexDirection: 'row',
@@ -50,21 +49,29 @@ const Item = () => {
           style={{
             borderRightWidth: width * 0.002,
             paddingRight: width * 0.02,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
           <Text>Occupancy Rate</Text>
-          <Text>20%</Text>
+          <Text>{item.occupancy}</Text>
         </View>
-        <View>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <Text>Due Payment</Text>
-          <Text>08/80</Text>
+          <Text>{item.due}</Text>
         </View>
         <View
           style={{
             borderLeftWidth: width * 0.002,
             paddingLeft: width * 0.02,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
           <Text>Issues Resolved</Text>
-          <Text>17/20</Text>
+          <Text>{item.resolve}</Text>
         </View>
       </View>
     </View>
@@ -73,7 +80,25 @@ const Item = () => {
 
 const Occupancy = () => {
   const date = new Date();
-  const [checked, setChecked] = useState(false);
+
+  const item1 = {
+    hostel: 'Hostel 01',
+    occupancy: '20%',
+    due: '12/20',
+    resolve: '17/20',
+  };
+  const item2 = {
+    hostel: 'Hostel 02',
+    occupancy: '40%',
+    due: '12/20',
+    resolve: '10/18',
+  };
+  const item3 = {
+    hostel: 'Hostel 03',
+    occupancy: '30%',
+    due: '12/20',
+    resolve: '37/50',
+  };
 
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
@@ -125,13 +150,9 @@ const Occupancy = () => {
           Occupancy Rate
         </Text>
 
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
+        <Item item={item1} />
+        <Item item={item2} />
+        <Item item={item3} />
       </ScrollView>
     </SafeAreaView>
   );

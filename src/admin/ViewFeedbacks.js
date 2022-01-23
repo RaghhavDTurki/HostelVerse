@@ -8,19 +8,21 @@ import {
   TextInput,
   ImageBackground,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import {width, height, colors} from '../utils/constants';
 import AdminHeader from './AdminHeader';
 import {bg4, profileImg} from '../../assets/index';
+import axios from 'axios';
 
-const Item = () => {
+const Item = ({item}) => {
   return (
     <View
       style={{
         borderWidth: width * 0.001,
+        width: width * 0.8,
         padding: width * 0.02,
-        elevation: 10,
+        elevation: 4,
         backgroundColor: colors.white,
         borderRadius: width * 0.05,
         marginVertical: height * 0.01,
@@ -37,7 +39,7 @@ const Item = () => {
             fontWeight: '500',
             color: colors.black,
           }}>
-          Himanshu Chittora
+          {item.name}
         </Text>
         <Text
           style={{
@@ -49,23 +51,37 @@ const Item = () => {
             paddingVertical: width * 0.005,
             borderRadius: width * 0.01,
           }}>
-          4/5
+          {item.rating + '/5'}
         </Text>
       </View>
-      <Text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mattis arcu
-        lectus non lacus. Sem rutrum ullamcorper tincidunt nunc urna enim at
-        nunc. Ut dui sit egestas nisl auctor ornare leo, nullam. Est aenean
-        dictumst tincidunt diam scelerisque neque egestas tempor. Adipiscing
-        proin eros, eget lacus. A eget arcu dapibus sollicitudin et ut praesent
-        vulputate. Vestibulum risus ullamcorper proin non hendrerit turpis
-        fermentum sem sit. Quisque rutrum venenatis sed.
-      </Text>
+      <Text>{item.message}</Text>
     </View>
   );
 };
 
 const ViewFeedbacks = ({navigation}) => {
+  const [feed, setFeed] = useState(null);
+
+  useEffect(() => {
+    getFeed();
+  });
+
+  const getFeed = async () => {
+    var config = {
+      method: 'get',
+      url: 'https://hostelverse.herokuapp.com/admin/viewFeedback',
+      headers: {},
+    };
+
+    axios(config)
+      .then(function (response) {
+        setFeed(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
       <ImageBackground style={{flex: 1}} source={bg4}>
@@ -88,10 +104,10 @@ const ViewFeedbacks = ({navigation}) => {
             View Feedbacks
           </Text>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Item />
-            <Item />
-            <Item />
-            <Item />
+            {feed &&
+              feed.map((item, index) => {
+                return <Item item={item} key={index} />;
+              })}
           </ScrollView>
         </View>
       </ImageBackground>

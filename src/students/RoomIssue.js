@@ -7,22 +7,32 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import React, {useState} from 'react';
-import Icon from 'react-native-vector-icons/Feather';
+import React, {useEffect, useState} from 'react';
 import {width, height, colors} from '../utils/constants';
 import StudentHeader from './StudentHeader';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RoomIssue = () => {
   const [value, setValue] = useState('');
+  const [userData, setUserData] = useState(null);
+
+  getProfile = async () => {
+    const data = await AsyncStorage.getItem('authData');
+    setUserData(JSON.parse(data));
+  };
+
+  useEffect(() => {
+    getProfile();
+  });
 
   const submitIssue = async () => {
-    if (!value) return;
+    if (!value || !userData.hostelid) return;
 
     var data = JSON.stringify({
-      hostelid: '',
-      roomno: '',
-      remarks: '',
+      hostelid: userData.hostelid,
+      roomno: userData.roomid,
+      remarks: value,
     });
 
     var config = {

@@ -6,13 +6,14 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {width, height, colors} from '../utils/constants';
 import {profileImg} from '../../assets/index';
 import AdminHeader from './AdminHeader';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 
-const Item = () => {
+const Item = ({item}) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -36,12 +37,12 @@ const Item = () => {
             fontWeight: '500',
             color: colors.black,
           }}>
-          Vinamra Vashishth
+          {item.wardenname}
         </Text>
-        <Text>Hostel No. 01 </Text>
+        <Text>Hostel No. {item.hostelid} </Text>
         <View style={{flexDirection: 'row'}}>
           <Text style={{color: colors.green}}>Update Warden | </Text>
-          <Text style={{color: colors.red}}>Remove Student</Text>
+          <Text style={{color: colors.red}}>Remove Warden</Text>
         </View>
       </View>
       <Image
@@ -58,6 +59,28 @@ const Item = () => {
 };
 
 const WardenList = () => {
+  const [feed, setFeed] = useState(null);
+
+  useEffect(() => {
+    getFeed();
+  });
+
+  const getFeed = async () => {
+    var config = {
+      method: 'get',
+      url: 'https://hostelverse.herokuapp.com/admin/viewWarden',
+      headers: {},
+    };
+
+    axios(config)
+      .then(function (response) {
+        setFeed(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
       <AdminHeader />
@@ -73,13 +96,10 @@ const WardenList = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{marginHorizontal: width * 0.05, marginTop: height * 0.05}}>
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
+        {feed &&
+          feed.map((item, index) => {
+            return <Item key={index} item={item} />;
+          })}
       </ScrollView>
     </SafeAreaView>
   );

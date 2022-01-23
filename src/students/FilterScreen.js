@@ -68,7 +68,7 @@ const FilterScreen = () => {
         style={{marginHorizontal: width * 0.05, marginTop: height * 0.05}}>
         {hostelData &&
           hostelData.map((item, index) => {
-            return <Item data={item} key={item.id} />;
+            return <Item data={item} key={index} />;
           })}
       </ScrollView>
     </SafeAreaView>

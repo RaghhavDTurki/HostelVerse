@@ -1,8 +1,9 @@
 import {View, Text, SafeAreaView, TouchableOpacity, Image} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import {width, height, colors} from '../utils/constants';
 import {profileImg} from '../../assets/index';
+import StudentHeader from './StudentHeader';
 
 const month = [
   'January',
@@ -21,20 +22,11 @@ const month = [
 
 const CheckInOut = () => {
   const date = new Date();
+  const [checked, setChecked] = useState(false);
 
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
-      <View
-        style={{
-          marginLeft: width * 0.03,
-          marginRight: width * 0.05,
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          marginTop: height * 0.01,
-        }}>
-        <Icon name="chevron-left" size={30} color="#900" />
-        <Icon name="list" size={30} color="#900" />
-      </View>
+      <StudentHeader />
       <View style={{marginHorizontal: width * 0.05, marginTop: height * 0.03}}>
         <Text style={{fontSize: width * 0.04}}>
           {date.getHours() + ' : ' + date.getMinutes()}
@@ -175,8 +167,9 @@ const CheckInOut = () => {
             Check In / Out
           </Text>
           <TouchableOpacity
+            onPress={() => setChecked(!checked)}
             style={{
-              backgroundColor: colors.green,
+              backgroundColor: checked ? colors.green : colors.red,
               padding: width * 0.01,
               justifyContent: 'center',
               alignItems: 'center',
@@ -188,7 +181,7 @@ const CheckInOut = () => {
                 fontWeight: '500',
                 color: colors.white,
               }}>
-              IN
+              {checked ? 'In' : 'Out'}
             </Text>
           </TouchableOpacity>
           <Text

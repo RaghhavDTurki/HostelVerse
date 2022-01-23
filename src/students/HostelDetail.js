@@ -42,7 +42,7 @@ const FeedbackItem = () => {
 const FilterScreen = () => {
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
-      <ScrollView style={{}}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Image
           source={hostelBg}
           resizeMode="cover"

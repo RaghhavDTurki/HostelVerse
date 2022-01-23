@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import React from 'react';
 
-import {width, colors, height} from '.././utils/constants';
+import {width, colors, height} from '../utils/constants';
 import {background} from '../../assets/index';
 
 const Startscreen = ({navigation}) => {
@@ -37,6 +37,7 @@ const Startscreen = ({navigation}) => {
             Enter into the magical world of
           </Text>
           <Text
+            onPress={() => console.log('Pressed')}
             style={{
               fontSize: width * 0.1,
               fontWeight: '500',
@@ -58,7 +59,7 @@ const Startscreen = ({navigation}) => {
               borderRadius: width * 0.01,
               marginTop: height * 0.015,
             }}
-            onPress={() => navigation.navigate('Filter')}>
+            onPress={() => navigation.replace('SignUp')}>
             <Text style={{color: colors.white}}>Get Started</Text>
           </TouchableOpacity>
         </View>

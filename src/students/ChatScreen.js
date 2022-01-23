@@ -37,7 +37,7 @@ const ChatItem = ({text, time, left}) => {
   );
 };
 
-const FilterScreen = () => {
+const Chat = ({navigation}) => {
   const [value, setValue] = useState('');
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
@@ -51,7 +51,12 @@ const FilterScreen = () => {
           paddingVertical: height * 0.02,
           backgroundColor: colors.yellow,
         }}>
-        <Icon name="chevron-left" size={30} color="#900" />
+        <Icon
+          name="chevron-left"
+          size={30}
+          color={colors.black}
+          onPress={() => navigation.goBack()}
+        />
         <Text
           style={{
             fontSize: width * 0.05,
@@ -60,7 +65,12 @@ const FilterScreen = () => {
           }}>
           Wade Warden
         </Text>
-        <Icon name="search" size={30} color="#900" />
+        <Icon
+          name="list"
+          size={30}
+          color={colors.black}
+          onPress={() => navigation.navigate('StudentDashboard')}
+        />
       </View>
       <ScrollView
         style={{marginHorizontal: width * 0.03, marginTop: height * 0.01}}>
@@ -114,4 +124,4 @@ const FilterScreen = () => {
   );
 };
 
-export default FilterScreen;
+export default Chat;

@@ -10,11 +10,24 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {width, colors, height, routes} from '.././utils/constants';
 import {background} from '../../assets/index';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignIn = ({navigation}) => {
   const [email, setEmail] = useState('Akash1@gmail.com');
   const [password, setPassword] = useState('12345678');
   const [error, setError] = useState(false);
+
+  const setStringValue = async value => {
+    try {
+      await AsyncStorage.setItem('authData', value);
+    } catch (e) {}
+  };
+
+  const getStringValue = async () => {
+    try {
+      await AsyncStorage.getItem('authData');
+    } catch (e) {}
+  };
 
   const userSignIn = () => {
     setError(false);
@@ -30,7 +43,7 @@ const SignIn = ({navigation}) => {
 
     var config = {
       method: 'post',
-      url: routes.signIn,
+      url: 'https://hostelverse.herokuapp.com/student/login',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -38,9 +51,19 @@ const SignIn = ({navigation}) => {
     };
 
     axios(config)
-      .then(data => console.log(data))
+      .then(async response => {
+        console.log(response.data);
+        if (response.data) {
+          await setStringValue(response.data);
+          // if (response.data.role == 'student') {
+          //   navigation.replace('Student');
+          // } else if (response.data.role == 'admin') {
+          //   navigation.replace('Admin');
+          // }
+        }
+      })
       .catch(function (error) {
-        console.log(error);
+        setError(true);
       });
   };
 
@@ -132,7 +155,9 @@ const SignIn = ({navigation}) => {
             </Text>
             <Text
               style={{color: colors.black, fontWeight: '600'}}
-              onPress={() => navigation.navigate('SignUp')}>
+              onPress={getStringValue}
+              // onPress={() => navigation.navigate('SignUp')}
+            >
               Sign Up
             </Text>
           </View>

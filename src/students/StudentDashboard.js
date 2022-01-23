@@ -6,7 +6,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Octicons from 'react-native-vector-icons/Octicons';
@@ -14,11 +14,22 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {width, height, colors} from '../utils/constants';
 import {profileImg} from '../../assets/index';
 import Clipboard from '@react-native-community/clipboard';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const StudentDashboard = ({navigation}) => {
   const copyToClipboard = () => {
     Clipboard.setString('#123456');
   };
+
+  getProfile = async () => {
+    const data = await AsyncStorage.getItem('authData');
+    console.log(data);
+  };
+
+  useEffect(() => {
+    getProfile();
+  });
+
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
       <ScrollView

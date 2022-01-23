@@ -8,14 +8,37 @@ import {
   TextInput,
   ImageBackground,
 } from 'react-native';
-import React, {useState} from 'react';
-import Icon from 'react-native-vector-icons/Feather';
+import React, {useEffect} from 'react';
 import {width, height, colors} from '../utils/constants';
 import StudentHeader from './StudentHeader';
 import {bg2, profileImg} from '../../assets/index';
+import axios from 'axios';
 
 const StudentProfile = ({navigation}) => {
-  const [value, setValue] = useState('');
+  const fetchProfile = async () => {
+    var data = JSON.stringify({
+      email: 'Akash1@gmail.com',
+    });
+
+    var config = {
+      method: 'post',
+      url: 'https://hostelverse.herokuapp.com/student/profile',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(async response => {
+        console.log(response.data);
+      })
+      .catch(function (error) {});
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  });
 
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>

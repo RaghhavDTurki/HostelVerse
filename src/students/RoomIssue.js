@@ -11,9 +11,35 @@ import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import {width, height, colors} from '../utils/constants';
 import StudentHeader from './StudentHeader';
+import axios from 'axios';
 
 const RoomIssue = () => {
   const [value, setValue] = useState('');
+
+  const submitIssue = async () => {
+    if (!value) return;
+
+    var data = JSON.stringify({
+      hostelid: '',
+      roomno: '',
+      remarks: '',
+    });
+
+    var config = {
+      method: 'post',
+      url: 'https://hostelverse.herokuapp.com/student/createRoomIssue',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(async response => {
+        navigation.navigate('StudentDashboard');
+      })
+      .catch(function (error) {});
+  };
 
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
@@ -73,6 +99,7 @@ const RoomIssue = () => {
           paddingHorizontal: width * 0.06,
         }}>
         <TouchableOpacity
+          onPress={submitIssue}
           style={{
             backgroundColor: colors.black,
             paddingVertical: width * 0.02,
